@@ -142,22 +142,38 @@ TARGETOS = WINNT
 # default to APPVER of 5.0
 
 !IFNDEF APPVER
-APPVER = 5.0
+APPVER = 6.0
 !ENDIF
 
+!IF "$(APPVER)" != "10.0"
+!IF "$(APPVER)" != "6.2"
 !IF "$(APPVER)" != "6.1"
 !IF "$(APPVER)" != "6.0"
 !IF "$(APPVER)" != "5.02"
 !IF "$(APPVER)" != "5.01"
 !IF "$(APPVER)" != "5.0"
 !IF "$(APPVER)" != "4.0"
-!ERROR Must specify APPVER environment variable (4.0, 5.0, 5.01, 5.02, 6.0, 6.1)
+!ERROR Must specify APPVER environment variable (4.0, 5.0, 5.01, 5.02, 6.0, 6.1, 6.2, 10.0)
 !ENDIF
 !ENDIF
 !ENDIF
 !ENDIF
 !ENDIF
 !ENDIF
+!ENDIF
+!ENDIF
+
+!IF "$(APPVER)" =="10.0"
+!IFNDEF _WIN32_IE
+_WIN32_IE = 0x0A00
+!ENDIF # _WIN32_IE
+!ENDIF # APPVER == 10.0
+
+!IF "$(APPVER)" =="6.2"
+!IFNDEF _WIN32_IE
+_WIN32_IE = 0x0A00
+!ENDIF # _WIN32_IE
+!ENDIF # APPVER == 6.2
 
 !IF "$(APPVER)" =="6.1"
 !IFNDEF _WIN32_IE
@@ -284,6 +300,10 @@ NMAKE_WINVER = 0x0502
 NMAKE_WINVER = 0x0600
 !ELSEIF "$(APPVER)" == "6.1"
 NMAKE_WINVER = 0x0601
+!ELSEIF "$(APPVER)" == "6.2"
+NMAKE_WINVER = 0x0602
+!ELSEIF "$(APPVER)" == "10.0"
+NMAKE_WINVER = 0x0A00
 !ENDIF
 
 !IF "$(TARGETOS)" == "WINNT"
@@ -422,6 +442,10 @@ MIDL_OPTIMIZATION=-target NT50
 MIDL_OPTIMIZATION=-target NT60
 !ELSEIF "$(APPVER)" == "6.1"
 MIDL_OPTIMIZATION=-target NT61
+!ELSEIF "$(APPVER)" == "6.2"
+MIDL_OPTIMIZATION=-target NT62
+!ELSEIF "$(APPVER)" == "10.0"
+MIDL_OPTIMIZATION=-target NT100
 !ELSEIF "$(APPVER)" == "5.01"
 MIDL_OPTIMIZATION=-target NT51
 !ELSEIF "$(APPVER)" == "5.02"
@@ -624,7 +648,11 @@ bc_exe = /Make
 bc_dll = /Makedll
 
 # Set the Output Directory
-!IF ("$(APPVER)" == "6.1") 
+!IF ("$(APPVER)" == "10.0") 
+OUTDIR=WIN10
+!ELSEIF ("$(APPVER)" == "6.2") 
+OUTDIR=WIN8
+!ELSEIF ("$(APPVER)" == "6.1") 
 OUTDIR=WIN7
 !ELSEIF ("$(APPVER)" == "6.0") 
 OUTDIR=Vista
