@@ -8,6 +8,7 @@ The purpose of this repository is hosting some (very few) files from the package
     - Check [[SO]: Visual Studio NMake build fails with: fatal error U1052: file 'win32.mak' not found (@CristiFati's answer)](https://stackoverflow.com/a/73167842/4788546)
  for more details
 - Files come from ***v7.1A*** (automatically installed) on my laptop
+    - Some of them require changes in order to be kept as up to date as possible (with newer *VStudio* versions)
 
 
 **LEGAL INFORMATION**
